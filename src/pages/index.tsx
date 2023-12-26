@@ -1,8 +1,9 @@
 import Door from '../components/Door';
 export default function Home() {
   return (
-    <div>
-      <Door></Door>
+    <div style={{ display: 'flex' }}>
+      <Door selected={true}></Door>
+      <Door selected={false}></Door>
     </div>
   );
 }
