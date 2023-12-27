@@ -1,22 +1,41 @@
-import DoorModel from '@/model/door';
-import Door from '../components/Door';
+import Card from '@/components/Card';
+import styles from '../styles/Form.module.css';
+import Link from 'next/link';
+import NumberInput from '@/components/NumberInput';
 import { useState } from 'react';
-import { createDoors, updateDoors } from '@/functions/doors';
 
-export default function Home() {
-  const [doors, setDoors] = useState(createDoors(4, 3));
+export default function Form() {
+  const [qtdDoors, setQtdDoors] = useState(3);
+  const [hasGift, setHasGift] = useState(1);
 
-  function renderDoors() {
-    return doors.map((door) => {
-      return (
-        <Door
-          key={door.number}
-          value={door}
-          onChange={(newDoor) => setDoors(updateDoors(doors, newDoor))}
-        />
-      );
-    });
-  }
-
-  return <div style={{ display: 'flex' }}>{renderDoors()}</div>;
+  return (
+    <div className={styles.form}>
+      <div>
+        <Card bgcolor="#c0392c">
+          <h1>Monty Hall</h1>
+        </Card>
+        <Card>
+          <NumberInput
+            text="QTD Portas"
+            value={qtdDoors}
+            onChange={(newQtd) => setQtdDoors(newQtd)}
+          />
+        </Card>
+      </div>
+      <div>
+        <Card>
+          <NumberInput
+            text="Porta com presente"
+            value={hasGift}
+            onChange={(newHasGift) => setHasGift(newHasGift)}
+          />
+        </Card>
+        <Card bgcolor="#28a085">
+          <Link href={`/game/${qtdDoors}/${hasGift}`}>
+            <h2 className={styles.link}>Iniciar</h2>
+          </Link>
+        </Card>
+      </div>
+    </div>
+  );
 }
